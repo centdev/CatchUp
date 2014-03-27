@@ -1,0 +1,212 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.example.usingintent.app.MainActivity"
+    android:padding="0dp"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true" >
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" My Events"
+        android:id="@+id/tvMyEvent"
+        android:height="30dp"
+        android:background="#3d9fff"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Photo"
+        android:id="@+id/buAddPhoto"
+
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:width="80dp"
+        android:height="70dp"
+        android:layout_below="@+id/tvMyEvent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/etTitle"
+        android:width="200dp"
+        android:layout_alignTop="@+id/buAddPhoto"
+        android:layout_toRightOf="@+id/buAddPhoto"
+        android:layout_marginLeft="20dp"
+        android:hint="Title" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/etVenue"
+        android:layout_below="@+id/etTitle"
+        android:layout_alignLeft="@+id/etTitle"
+        android:layout_alignStart="@+id/etTitle"
+        android:layout_alignRight="@+id/etTitle"
+        android:layout_alignEnd="@+id/etTitle"
+        android:hint="Venue" />
+
+
+    <!-- Event Time  -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Event Time"
+        android:id="@+id/tvEventTime"
+        android:layout_below="@+id/buAddPhoto"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:height="18dp"
+        android:background="#3d9fff"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:id="@+id/buSave"
+        android:scaleY="0.8"
+        android:layout_alignBottom="@+id/tvMyEvent"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/tvDate1"
+        android:width="150dp"
+        android:text="01/06/2012"
+        android:layout_below="@+id/tvEventTime"
+        android:layout_alignLeft="@+id/buAddPhoto"
+        android:layout_alignStart="@+id/buAddPhoto"
+        android:clickable="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/tvTime1"
+        android:layout_below="@+id/tvEventTime"
+        android:layout_toRightOf="@+id/tvDate1"
+        android:layout_marginLeft="30dp"
+        android:width="150dp"
+        android:text="18:30"
+        android:clickable="true" />
+
+    <!-- Confirm By  -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirm By"
+        android:id="@+id/tvConfirmedBy"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#3d9fff"
+        android:textColor="#FFFFFF"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textStyle="bold"
+        android:layout_below="@+id/tvDate1"
+        android:height="18dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/tvDate2"
+        android:width="150dp"
+        android:text="14/02/2014"
+        android:layout_below="@+id/tvConfirmedBy"
+        android:layout_alignLeft="@+id/tvDate1"
+        android:layout_alignStart="@+id/tvDate1"
+        android:clickable="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/tvTime2"
+        android:width="150dp"
+        android:layout_alignTop="@+id/tvDate2"
+        android:layout_alignLeft="@+id/tvTime1"
+        android:text="00:00"
+        android:clickable="true" />
+
+
+    <!-- ****************** Invite ******************** -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Invite"
+        android:id="@+id/tvInvite"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#3d9fff"
+        android:textColor="#FFFFFF"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textStyle="bold"
+        android:layout_below="@+id/tvDate2"
+        android:height="18dp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+"
+        android:id="@+id/buAdd"
+        android:longClickable="true"
+        android:layout_below="@+id/tvInvite"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:scrollHorizontally="false"
+        android:onClick="onAddContactClick" />
+
+    <AutoCompleteTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/actvInvite"
+        android:selectAllOnFocus="false"
+        android:layout_below="@+id/tvInvite"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/buAdd"
+        android:layout_alignBottom="@+id/buAdd"
+        android:hint="Invite" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
+        android:layout_below="@+id/actvInvite"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+
+
+</RelativeLayout>
+

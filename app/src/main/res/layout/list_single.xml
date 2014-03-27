@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_centerVertical="true"
+        android:layout_margin="5dp"
+        android:background="#444"
+        android:padding="3dp" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:textColor="@android:color/black"
+        android:textSize="20dip"
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/ivImage"
+        android:layout_toRightOf="@+id/ivImage" />
+
+    <TextView
+        android:id="@+id/tvVenue"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTitle"
+        android:layout_toRightOf="@+id/ivImage"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:textColor="@android:color/black"
+        android:textSize="20dip" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="20dip"
+        android:layout_below="@+id/tvVenue"
+        android:layout_alignLeft="@+id/tvVenue"
+        android:layout_alignStart="@+id/tvVenue" />
+
+</RelativeLayout>
