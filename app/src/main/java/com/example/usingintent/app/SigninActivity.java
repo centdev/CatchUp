@@ -17,6 +17,7 @@ public class SigninActivity extends Activity{
     }
 
     public void onLoginClick(View view) {
+
         startActivity(new Intent(this, EventActivity.class));
     }
 }
