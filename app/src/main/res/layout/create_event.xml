@@ -205,7 +205,23 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sonson"
+        android:id="@+id/buSonSon"
+        android:layout_toLeftOf="@+id/buSave"
+        android:layout_alignBottom="@+id/tvMyEvent" />
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ming"
+        android:id="@+id/buMing"
+        android:layout_above="@+id/etTitle"
+        android:layout_toLeftOf="@+id/buSonSon" />
 
 
 </RelativeLayout>

@@ -3,6 +3,7 @@ package com.example.usingintent.app;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,6 +23,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -87,6 +89,7 @@ public class CreateEventActivity extends Activity{
     private EditText etVenue;
     private AutoCompleteTextView actvInvite;
     private Button buSave;
+    private Button buAddPhoto;
 
     private int year;
     private int month;
@@ -99,19 +102,22 @@ public class CreateEventActivity extends Activity{
 
     ArrayList<String> listItems = new ArrayList<String>();
     ArrayAdapter<String> adapter;
-    //int clickCounter=0;
 
     public ArrayList<String> c_Name = new ArrayList<String>();
-    //public ArrayList<String> c_Number = new ArrayList<String>();
-    //String[] name_Val=null;
-    //String[] phone_Val=null;
-
     private String jsonResult;
     private String url;
-    //private URL url;
     private String user_id = "timfong224";
     private String user_name = "TimFong";
-    //ArrayList<NameValuePair> nameValuePairs;
+    Button buMing;
+
+    //----- http://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/
+    // Progress Dialog
+    private ProgressDialog pDialog;
+
+    JSONParser jsonParser = new JSONParser();
+    // url to create new product
+    private static String url_create_product = "http://www.centhk.com/event2/v1/event.php";
+
 
     // ******************************** Begin of onCreate ***********************************************
     @Override
@@ -119,8 +125,22 @@ public class CreateEventActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_event);
 
+
         etTitle = (EditText) findViewById(R.id.etTitle);
         etVenue = (EditText) findViewById(R.id.etVenue);
+        buAddPhoto = (Button) findViewById(R.id.buAddPhoto);
+
+
+        buMing = (Button) findViewById(R.id.buMing);
+
+        buMing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                test();
+            }
+        });
+
 
         actvInvite = (AutoCompleteTextView)findViewById(R.id.actvInvite);
         setCurrentDateOnView();
@@ -139,14 +159,6 @@ public class CreateEventActivity extends Activity{
         buSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //url = "http://www.centhk.com/event/create_event.php?user_id=timfong224@mailinator.com&user_name=timfong224&event_title=test6&event_venue=test6&event_inviters=timfong224";
-//                url = "http://www.centhk.com/event/create_event_New.php";
-//                nameValuePairs = new ArrayList<NameValuePair>();
-//                nameValuePairs.add( new BasicNameValuePair("user_id", user_id ));
-//                nameValuePairs.add( new BasicNameValuePair("user_name", user_name) );
-//                nameValuePairs.add(new BasicNameValuePair("event_title", etTitle.getText().toString()));
-//                nameValuePairs.add( new BasicNameValuePair("event_venue", etVenue.getText().toString()) );
-
             try {
                 url = "http://www.centhk.com/event/create_event_New.php?"
                 +"user_id=" + URLEncoder.encode(user_id,"UTF-8")
@@ -157,12 +169,89 @@ public class CreateEventActivity extends Activity{
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-                //+"&event_confirm_time=2014-04-04 18:00"
-                //+"&event_tentative_time=2014-04-04 18:00";
-
                 accessWebService();
             }
         });
+
+
+        //*********************************************************
+        //*                                                  SONSON                                              *
+        //*********************************************************
+
+        Button buSonSon = (Button) findViewById(R.id.buSonSon);
+        buSonSon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new CreateNewEvent().execute();
+            }
+        });
+
+    }
+
+    public void test() {
+        buMing.setText("shit");
+    }
+    /**     * Background Async Task to Create new product     * */
+    class CreateNewEvent extends AsyncTask<String, String, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(CreateEventActivity.this);
+            pDialog.setMessage("Creating Event..");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+        /**         * Creating Event         * */
+        protected String doInBackground(String... args) {
+            String title = etTitle.getText().toString();
+            String venue = etVenue.getText().toString();
+            String photo = buAddPhoto.getText().toString();
+
+            // Building Parameters
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("name", name));
+            params.add(new BasicNameValuePair("price", price));
+            params.add(new BasicNameValuePair("description", description));
+
+            // getting JSON Object
+            // Note that create product url accepts POST method
+            JSONObject json = jsonParser.makeHttpRequest(url_create_product,
+                    "POST", params);
+
+            // check log cat fro response
+            Log.d("Create Response", json.toString());
+
+            // check for success tag
+            try {
+                int success = json.getInt(TAG_SUCCESS);
+
+                if (success == 1) {
+                    // successfully created product
+                    Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
+                    startActivity(i);
+
+                    // closing this screen
+                    finish();
+                } else {
+                    // failed to create product
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        /**
+         * After completing background task Dismiss the progress dialog
+         * **/
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog once done
+            pDialog.dismiss();
+        }
+
 
     }
 
