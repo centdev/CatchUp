@@ -164,10 +164,6 @@ public class DisplayEventActivity extends Activity {
                             // successfully received product details
                             JSONArray jaInvitees = json.getJSONArray(TAG_INVITEES); // JSON Array
                             invitees = new String[jaInvitees.length()];
-
-
-
-
                             etTitle.setText(event_title);
                             etVenue.setText(event_venue);
                             tvDate2.setText(confirm_date);
@@ -176,12 +172,10 @@ public class DisplayEventActivity extends Activity {
                             // Loop through all events
                             for (int i = 0; i < jaInvitees.length(); i++) {
                                 JSONObject c = jaInvitees.getJSONObject(i);
-
                                 // Storing each json item in variable
                                 invitees[i] = c.getString(TAG_INVITEES);
                                 Log.d("invitees: ", invitees[i].toString());
                             }
-
                         }else{
                             // product with pid not found
                         }
