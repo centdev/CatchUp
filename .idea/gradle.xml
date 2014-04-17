@@ -7,8 +7,8 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="C:\Users\timfong224\AndroidStudioProjects\CatchUp" />
-            <option value="C:\Users\timfong224\AndroidStudioProjects\CatchUp\app" />
+            <option value="C:\Data\CatchUp" />
+            <option value="C:\Data\CatchUp\app" />
           </set>
         </option>
       </GradleProjectSettings>
