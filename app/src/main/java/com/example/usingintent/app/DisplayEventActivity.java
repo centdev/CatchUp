@@ -65,8 +65,7 @@ public class DisplayEventActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
 
 //        http://droidparadise.blogspot.hk/2012/11/networkonmainthreadexception.html
-        if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD)
-        {
+        if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.GINGERBREAD)  {
             StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                     .detectDiskReads()
                     .detectDiskWrites()
@@ -78,14 +77,26 @@ public class DisplayEventActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.display_event);
 
-        ivSave = (ImageView) findViewById(R.id.ivSave);
         ivDelete = (ImageView) findViewById(R.id.ivDelete);
+        ivSave = (ImageView) findViewById(R.id.ivSave);
+
+        etTitle = (EditText) findViewById(R.id.etTitle);
+        etVenue = (EditText) findViewById(R.id.etVenue);
+        tvDate1 = (TextView) findViewById(R.id.tvDate1);
+        tvDate2 = (TextView) findViewById(R.id.tvDate2);
+        tvTime1 = (TextView) findViewById(R.id.tvTime1);
+        tvTime2 = (TextView) findViewById(R.id.tvTime2);
+        ivAddPhoto = (ImageView) findViewById(R.id.ivAddPhoto);
+        lvInvitees = (ListView) findViewById(R.id.lvInvitees);
+
+//        ivSave = (ImageView) findViewById(R.id.ivSave);
+//        ivDelete = (ImageView) findViewById(R.id.ivDelete);
 
         // getIntent() is a method from the started activity
         Intent myIntent = getIntent(); // gets the previously created intent
         String id = myIntent.getStringExtra(TAG_ID);
         url_event_detials =  url_event_detials + id;
-        url_event_options = url_event_options + id + "options";
+        url_event_options = url_event_options + id + "/options";
 
         Log.d("****** url_event_detials *********",url_event_detials);
 
@@ -134,9 +145,9 @@ public class DisplayEventActivity extends Activity {
                     // Check for success tag
                     int success;
                     try {
+                        //**************************** Get Event Detail *********************************
                         // Building Parameters
                         List<NameValuePair> params = new ArrayList<NameValuePair>();
-
                         JSONObject json = jsonParser.makeHttpRequest(url_event_detials, "GET", params);
 
                         // check your log for json response
@@ -155,17 +166,7 @@ public class DisplayEventActivity extends Activity {
                             invitees = new String[jaInvitees.length()];
 
 
-                            ivDelete = (ImageView) findViewById(R.id.ivDelete);
-                            ivSave = (ImageView) findViewById(R.id.ivSave);
 
-                            etTitle = (EditText) findViewById(R.id.etTitle);
-                            etVenue = (EditText) findViewById(R.id.etVenue);
-                            tvDate1 = (TextView) findViewById(R.id.tvDate1);
-                            tvDate2 = (TextView) findViewById(R.id.tvDate2);
-                            tvTime1 = (TextView) findViewById(R.id.tvTime1);
-                            tvTime2 = (TextView) findViewById(R.id.tvTime2);
-                            ivAddPhoto = (ImageView) findViewById(R.id.ivAddPhoto);
-                            lvInvitees = (ListView) findViewById(R.id.lvInvitees);
 
                             etTitle.setText(event_title);
                             etVenue.setText(event_venue);
@@ -184,6 +185,14 @@ public class DisplayEventActivity extends Activity {
                         }else{
                             // product with pid not found
                         }
+
+                        //**************************** Get Event Option *********************************
+                        JSONObject jsonOption = jsonParser.makeHttpRequest(url_event_options, "GET", params);
+
+
+
+
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
