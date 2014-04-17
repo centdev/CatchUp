@@ -15,17 +15,21 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=" My Events"
+        android:text="Create Event"
         android:id="@+id/tvMyEvent"
-        android:height="30dp"
-        android:background="#3d9fff"
+        android:height="40dp"
+        android:background="@color/dark_red"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -70,27 +74,16 @@
         android:layout_height="wrap_content"
         android:text="Event Time"
         android:id="@+id/tvEventTime"
-        android:layout_below="@+id/buAddPhoto"
-        android:layout_marginTop="10dp"
+        android:height="18dp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:background="@color/dark_red"
+        android:layout_below="@+id/etVenue"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:height="18dp"
-        android:background="#3d9fff"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Done"
-        android:id="@+id/buSave"
-        android:scaleY="0.8"
-        android:layout_alignBottom="@+id/tvMyEvent"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:paddingLeft="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -98,7 +91,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/tvDate1"
         android:width="150dp"
-        android:text="01/06/2012"
+        android:text="1988-11-12"
         android:layout_below="@+id/tvEventTime"
         android:layout_alignLeft="@+id/buAddPhoto"
         android:layout_alignStart="@+id/buAddPhoto"
@@ -124,13 +117,14 @@
         android:id="@+id/tvConfirmedBy"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="#3d9fff"
+        android:background="@color/dark_red"
         android:textColor="#FFFFFF"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:textStyle="bold"
         android:layout_below="@+id/tvDate1"
-        android:height="18dp" />
+        android:height="18dp"
+        android:paddingLeft="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -138,7 +132,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/tvDate2"
         android:width="150dp"
-        android:text="14/02/2014"
+        android:text="1988-11-12"
         android:layout_below="@+id/tvConfirmedBy"
         android:layout_alignLeft="@+id/tvDate1"
         android:layout_alignStart="@+id/tvDate1"
@@ -164,13 +158,14 @@
         android:id="@+id/tvInvite"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="#3d9fff"
+        android:background="@color/dark_red"
         android:textColor="#FFFFFF"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:textStyle="bold"
         android:layout_below="@+id/tvDate2"
-        android:height="18dp" />
+        android:height="18dp"
+        android:paddingLeft="10dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -209,19 +204,12 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="sonson"
+        android:text="Save"
         android:id="@+id/buSonSon"
-        android:layout_toLeftOf="@+id/buSave"
-        android:layout_alignBottom="@+id/tvMyEvent" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ming"
-        android:id="@+id/buMing"
-        android:layout_above="@+id/etTitle"
-        android:layout_toLeftOf="@+id/buSonSon" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/tvMyEvent"
+        android:layout_alignParentTop="true" />
 
 
 </RelativeLayout>

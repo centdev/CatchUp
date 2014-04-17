@@ -15,31 +15,32 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=" My Events"
+        android:text="Event Detail"
         android:id="@+id/tvMyEvent"
-        android:height="30dp"
-        android:background="#3d9fff"
+        android:height="40dp"
+        android:background="@color/dark_red"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:textSize="20dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp" />
 
-    <Button
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Photo"
-        android:id="@+id/buAddPhoto"
-
+        android:id="@+id/ivAddPhoto"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
-        android:width="80dp"
-        android:height="70dp"
         android:layout_below="@+id/tvMyEvent"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:src="@drawable/photo_add"
+        android:contentDescription="Add Photo" />
 
 
     <EditText
@@ -47,8 +48,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/etTitle"
         android:width="200dp"
-        android:layout_alignTop="@+id/buAddPhoto"
-        android:layout_toRightOf="@+id/buAddPhoto"
+        android:layout_alignTop="@+id/ivAddPhoto"
+        android:layout_toRightOf="@+id/ivAddPhoto"
         android:layout_marginLeft="20dp"
         android:hint="Title" />
 
@@ -68,27 +69,36 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Event Time"
+        android:text="Tentative Time"
         android:id="@+id/tvEventTime"
-        android:layout_below="@+id/buAddPhoto"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:height="18dp"
-        android:background="#3d9fff"
+        android:background="@color/dark_red"
         android:textColor="#FFFFFF"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_alignRight="@+id/buAdd"
+        android:layout_alignEnd="@+id/buAdd"
+        android:layout_below="@+id/etVenue"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Done"
-        android:id="@+id/buSave"
-        android:scaleY="0.8"
-        android:layout_alignBottom="@+id/tvMyEvent"
+        android:id="@+id/ivSave"
+        android:src="@drawable/accept"
+        android:background="@color/dark_red"
+        android:layout_alignTop="@+id/etTitle"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivDelete"
+        android:src="@drawable/delete"
+        android:background="@color/dark_red"
+        android:layout_below="@+id/ivSave"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -98,10 +108,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/tvDate1"
         android:width="150dp"
-        android:text="01/06/2012"
+        android:text="1900-01-01"
         android:layout_below="@+id/tvEventTime"
-        android:layout_alignLeft="@+id/buAddPhoto"
-        android:layout_alignStart="@+id/buAddPhoto"
+        android:layout_alignLeft="@+id/ivAddPhoto"
+        android:layout_alignStart="@+id/ivAddPhoto"
         android:clickable="true" />
 
     <TextView
@@ -109,12 +119,11 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/tvTime1"
-        android:layout_below="@+id/tvEventTime"
-        android:layout_toRightOf="@+id/tvDate1"
-        android:layout_marginLeft="30dp"
         android:width="150dp"
-        android:text="18:30"
-        android:clickable="true" />
+        android:text="00:00"
+        android:clickable="true"
+        android:layout_alignTop="@+id/tvDate1"
+        android:layout_toRightOf="@+id/tvDate1" />
 
     <!-- Confirm By  -->
     <TextView
@@ -122,15 +131,16 @@
         android:layout_height="wrap_content"
         android:text="Confirm By"
         android:id="@+id/tvConfirmedBy"
+        android:background="@color/dark_red"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:height="18dp"
+        android:layout_marginTop="17dp"
+        android:layout_below="@+id/textView3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="#3d9fff"
-        android:textColor="#FFFFFF"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textStyle="bold"
-        android:layout_below="@+id/tvDate1"
-        android:height="18dp" />
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -138,11 +148,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/tvDate2"
         android:width="150dp"
-        android:text="14/02/2014"
+        android:text="1900-01-01"
+        android:clickable="true"
         android:layout_below="@+id/tvConfirmedBy"
-        android:layout_alignLeft="@+id/tvDate1"
-        android:layout_alignStart="@+id/tvDate1"
-        android:clickable="true" />
+        android:layout_toLeftOf="@+id/tvTime2" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -150,10 +159,11 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/tvTime2"
         android:width="150dp"
-        android:layout_alignTop="@+id/tvDate2"
-        android:layout_alignLeft="@+id/tvTime1"
         android:text="00:00"
-        android:clickable="true" />
+        android:clickable="true"
+        android:layout_below="@+id/tvConfirmedBy"
+        android:layout_alignRight="@+id/etVenue"
+        android:layout_alignEnd="@+id/etVenue" />
 
 
     <!-- ****************** Invite ******************** -->
@@ -164,7 +174,7 @@
         android:id="@+id/tvInvite"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="#3d9fff"
+        android:background="@color/dark_red"
         android:textColor="#FFFFFF"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -183,7 +193,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:scrollHorizontally="false"
-        android:onClick="onAddContactClick" />
+        android:onClick="onAddContactClick"
+        android:layout_toRightOf="@+id/actvInvite" />
 
     <AutoCompleteTextView
         android:layout_width="wrap_content"
@@ -193,19 +204,54 @@
         android:layout_below="@+id/tvInvite"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/buAdd"
         android:layout_alignBottom="@+id/buAdd"
-        android:hint="Invite" />
+        android:hint="Invite"
+        android:layout_toLeftOf="@+id/ivSave" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listView"
+        android:id="@+id/lvInvitees"
         android:layout_below="@+id/actvInvite"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Availabe:"
+        android:id="@+id/textView"
+        android:layout_marginTop="7dp"
+        android:layout_below="@+id/tvDate1"
+        android:layout_alignLeft="@+id/tvDate1"
+        android:layout_alignStart="@+id/tvDate1" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="999"
+        android:id="@+id/tvAva"
+        android:layout_alignTop="@+id/textView"
+        android:layout_alignLeft="@+id/etVenue"
+        android:layout_alignStart="@+id/etVenue" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Not Available:"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:layout_toLeftOf="@+id/tvAva" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="999"
+        android:id="@+id/tvUnAva"
+        android:layout_below="@+id/tvAva"
+        android:layout_toRightOf="@+id/textView3" />
 
 
 </RelativeLayout>

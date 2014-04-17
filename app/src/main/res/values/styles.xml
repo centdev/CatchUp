@@ -1,8 +1,22 @@
 <resources>
 
+
+    <color name="light_red">#fce2cf</color>
+    <color name="dark_red">#c25436</color>
+
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="android:Theme">
         <!-- Customize your theme here. -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@color/light_red</item>
+        <item name="android:windowBackground">@color/light_red</item>
+        <item name="android:colorBackground">@color/light_red</item>
+        <item name="android:textColor">@color/dark_red</item>
+    </style>
+
+    <style name="Theme.Splash" parent="android:Theme">
+        <item name="android:windowBackground">@drawable/catchup</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
 </resources>

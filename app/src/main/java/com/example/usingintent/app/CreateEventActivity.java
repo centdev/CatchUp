@@ -88,7 +88,6 @@ public class CreateEventActivity extends Activity{
     private EditText etTitle;
     private EditText etVenue;
     private AutoCompleteTextView actvInvite;
-    private Button buSave;
     private Button buAddPhoto;
 
     private int year;
@@ -104,11 +103,11 @@ public class CreateEventActivity extends Activity{
     ArrayAdapter<String> adapter;
 
     public ArrayList<String> c_Name = new ArrayList<String>();
-    private String jsonResult;
-    private String url;
-    private String user_id = "timfong224";
-    private String user_name = "TimFong";
-    Button buMing;
+//    private String jsonResult;
+//    private String url;
+//    private String user_id = "timfong224";
+//    private String user_name = "TimFong";
+
 
     //----- http://www.androidhive.info/2012/05/how-to-connect-android-with-php-mysql/
     // Progress Dialog
@@ -116,7 +115,10 @@ public class CreateEventActivity extends Activity{
 
     JSONParser jsonParser = new JSONParser();
     // url to create new product
-    private static String url_create_product = "http://www.centhk.com/event2/v1/event.php";
+    private static String url_create_event = "http://www.centhk.com/event2/v1/events";
+    private static final String EVENT_ID = "event_id";
+    private static final String EVENT_ERR = "error";
+    private static final String EVENT_MSG = "message";
 
 
     // ******************************** Begin of onCreate ***********************************************
@@ -131,17 +133,6 @@ public class CreateEventActivity extends Activity{
         buAddPhoto = (Button) findViewById(R.id.buAddPhoto);
 
 
-        buMing = (Button) findViewById(R.id.buMing);
-
-        buMing.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                test();
-            }
-        });
-
-
         actvInvite = (AutoCompleteTextView)findViewById(R.id.actvInvite);
         setCurrentDateOnView();
         fetchContacts();
@@ -152,31 +143,6 @@ public class CreateEventActivity extends Activity{
         adapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listItems);
         listview.setAdapter(adapter);
 
-        //*********************************************************
-        //*                                                  SAVE                                                  *
-        //*********************************************************
-        buSave = (Button) findViewById(R.id.buSave);
-        buSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            try {
-                url = "http://www.centhk.com/event/create_event_New.php?"
-                +"user_id=" + URLEncoder.encode(user_id,"UTF-8")
-                +"&user_name="+ URLEncoder.encode(user_name,"UTF-8")
-                +"&event_title="+ URLEncoder.encode(etTitle.getText().toString(),"UTF-8")
-                +"&event_venue="+ URLEncoder.encode(etVenue.getText().toString(),"UTF-8")
-                +"&event_inviters="+ URLEncoder.encode(user_id,"UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-                accessWebService();
-            }
-        });
-
-
-        //*********************************************************
-        //*                                                  SONSON                                              *
-        //*********************************************************
 
         Button buSonSon = (Button) findViewById(R.id.buSonSon);
         buSonSon.setOnClickListener(new View.OnClickListener() {
@@ -188,9 +154,6 @@ public class CreateEventActivity extends Activity{
 
     }
 
-    public void test() {
-        buMing.setText("shit");
-    }
     /**     * Background Async Task to Create new product     * */
     class CreateNewEvent extends AsyncTask<String, String, String> {
 
@@ -208,39 +171,82 @@ public class CreateEventActivity extends Activity{
             String title = etTitle.getText().toString();
             String venue = etVenue.getText().toString();
             String photo = buAddPhoto.getText().toString();
+            String tentative_date = (String) tvDate1.getText();
+            String tentative_time = (String) tvTime1.getText();
+            String confirmed_date = (String) tvDate2.getText();
+            String confirmed_time = (String) tvTime2.getText();
 
             // Building Parameters
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("name", name));
-            params.add(new BasicNameValuePair("price", price));
-            params.add(new BasicNameValuePair("description", description));
+            //List<NameValuePair> params = new ArrayList<NameValuePair>();
+//            params.add(new BasicNameValuePair("event_title", title));
+//            params.add(new BasicNameValuePair("event_venue", venue));
+//            params.add(new BasicNameValuePair("event_photo_path", photo));
+//            params.add(new BasicNameValuePair("confirmed_date", confirmed_date));
+//            params.add(new BasicNameValuePair("confirmed_time",confirmed_time));
+//            params.add(new BasicNameValuePair("fb_album_id",""));
+//            params.add(new BasicNameValuePair("tentative_date",tentative_date));
+//            params.add(new BasicNameValuePair("tentative_time",tentative_time));
 
-            // getting JSON Object
-            // Note that create product url accepts POST method
-            JSONObject json = jsonParser.makeHttpRequest(url_create_product,
-                    "POST", params);
+            JSONObject jEvent = new JSONObject();
+            JSONObject jEventOption = new JSONObject();
+            JSONObject jInvitees = new JSONObject();
+            JSONArray jrInvitees = new JSONArray();
 
-            // check log cat fro response
-            Log.d("Create Response", json.toString());
-
-            // check for success tag
+            //http://stackoverflow.com/questions/8706046/create-json-in-android
             try {
-                int success = json.getInt(TAG_SUCCESS);
+                jEvent.put("event_title", title);
+                jEvent.put("event_venue", venue);
+                jEvent.put("event_photo_path", photo);
+                jEvent.put("confirmed_date", confirmed_date);
+                jEvent.put("confirmed_time", confirmed_time);
+                jEvent.put("fb_album_id", "");
 
-                if (success == 1) {
+                jEventOption.put("tentative_date", tentative_date);
+                jEventOption.put("tentative_time", tentative_time);
+
+                jrInvitees.put("WNpGeQqIKz");
+                jrInvitees.put("BDewUvBvtp");
+//                for (PhoneNumber pn : person.getPhoneList() ) {
+//                    JSONObject pnObj = new JSONObject();
+//                    pnObj.put("num", pn.getNumber());
+//                    pnObj.put("type", pn.getType());
+//                    jsonArr.put(pnObj);
+//                }
+
+
+
+                //Log.d("*************** Params: ", params.toString());
+
+                // getting JSON Object
+                // Note that create product url accepts POST method
+                JSONObject json = new JSONObject();
+                json.put("event", jEvent);
+                json.put("eventOptions", jEventOption);
+                json.put("invitees", jrInvitees);
+                Log.d("*************** json: ", json.toString());
+                //Log.d("*************** param: ", params.toString());
+                json = jsonParser.makeJsonHttpRequest(url_create_event, "POST", json.toString());
+
+
+
+                //int event_id = json.getInt(EVENT_ID);
+                boolean event_err = json.getBoolean(EVENT_ERR);
+                //String event_msg = json.getString(EVENT_MSG);
+
+                if (event_err == false) {
                     // successfully created product
-                    Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
-                    startActivity(i);
-
+                    //Toast.makeText(getApplicationContext(), "Event Created. Event ID:" + event_id, Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(), EventActivity.class));
                     // closing this screen
                     finish();
                 } else {
                     // failed to create product
+                    //Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
+            //Toast.makeText(getApplicationContext(), "Test", Toast.LENGTH_SHORT).show();
             return null;
         }
 
@@ -251,10 +257,7 @@ public class CreateEventActivity extends Activity{
             // dismiss the dialog once done
             pDialog.dismiss();
         }
-
-
     }
-
     // ******************************** end of onCreate *************************************************
 
     public void onAddContactClick(View v) {
@@ -264,76 +267,6 @@ public class CreateEventActivity extends Activity{
         adapter.notifyDataSetChanged();
     }
 
-    // Async Task to access the web
-    // http://codeoncloud.blogspot.hk/2013/07/android-mysql-php-json-tutorial.html
-    private class JsonReadTask extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost(params[0]);
-            try {
-                HttpResponse response = httpclient.execute(httppost);
-                jsonResult = inputStreamToString(response.getEntity().getContent()).toString();
-            }
-
-            catch (ClientProtocolException e) {
-                e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "Error1:" + e.toString(), Toast.LENGTH_LONG).show();
-            } catch (IOException e) {
-                e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "Error2:" + e.toString(), Toast.LENGTH_LONG).show();
-            }
-            return null;
-        }
-
-        private StringBuilder inputStreamToString(InputStream is) {
-            String rLine = "";
-            StringBuilder answer = new StringBuilder();
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-
-            try {
-                while ((rLine = rd.readLine()) != null) {
-                    answer.append(rLine);
-                }
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-                Toast.makeText(getApplicationContext(), "Error3:" + e.toString(), Toast.LENGTH_LONG).show();
-            }
-            return answer;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            show_result();
-        }
-    }// end async task
-
-    public void accessWebService() {
-        JsonReadTask task = new JsonReadTask();
-        // passes values for the urls string array
-        task.execute(new String[] { url });
-    }
-
-    // build hash set for list view
-    public void show_result() {
-//        List<Map<String, String>> employeeList = new ArrayList<Map<String, String>>();
-
-        try {
-            JSONObject jsonResponse = new JSONObject(jsonResult);
-            JSONArray jsonMainNode = jsonResponse.optJSONArray("item");
-
-            for (int i = 0; i < jsonMainNode.length(); i++) {
-                JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-                String event_id = jsonChildNode.optString("event_id");
-                Toast.makeText(getApplicationContext(), "Event Created. Event ID:" + event_id, Toast.LENGTH_SHORT).show();
-
-            }
-            startActivity(new Intent(this, EventActivity.class));
-        } catch (JSONException e) {
-            Toast.makeText(getApplicationContext(), "Error:" + e.toString(), Toast.LENGTH_SHORT).show();
-        }
-    }
 
 
     public void fetchContacts() {
@@ -375,10 +308,13 @@ public class CreateEventActivity extends Activity{
         tvTime2 = (TextView) findViewById(R.id.tvTime2);
 
         // Show current date
-        tvDate1.setText(new StringBuilder().append(day).append("/").append(month + 1).append("/").append(year).append(" "));
+        //tvDate1.setText(new StringBuilder().append(day).append("/").append(month + 1).append("/").append(year).append(" "));
+        tvDate1.setText(new StringBuilder().append(year).append("-").append(month + 1).append("-").append(day).append(" "));
         tvTime1.setText(new StringBuilder().append(hour).append(":").append(second));
-        tvDate2.setText(new StringBuilder().append(day).append("/").append(month + 1).append("/").append(year).append(" "));
+        //tvDate2.setText(new StringBuilder().append(day).append("/").append(month + 1).append("/").append(year).append(" "));
+        tvDate2.setText(new StringBuilder().append(year).append("-").append(month + 1).append("-").append(day).append(" "));
         tvTime2.setText(new StringBuilder().append(hour).append(":").append(second));
+
 
         // Button listener to show date picker dialog
         tvDate1.setOnClickListener(new View.OnClickListener() {
@@ -416,10 +352,15 @@ public class CreateEventActivity extends Activity{
             month = selectedMonth;
             day   = selectedDay;
             // Show selected date
+//            tvDate1.setText(new StringBuilder()
+//                    .append(day).append("/")
+//                    .append(month + 1)
+//                    .append("/").append(year)
+//                    .append(" "));
             tvDate1.setText(new StringBuilder()
-                    .append(day).append("/")
-                    .append(month + 1)
-                    .append("/").append(year)
+                    .append(year).append("-")
+                    .append(month + 1).append("-")
+                    .append(day)
                     .append(" "));
         }
     };
@@ -436,15 +377,88 @@ public class CreateEventActivity extends Activity{
 
             // Show selected date
             tvDate2.setText(new StringBuilder()
-                    .append(day).append("/")
-                    .append(month + 1)
-                    .append("/").append(year)
+                    .append(year).append("-")
+                    .append(month + 1).append("-")
+                    .append(day)
                     .append(" "));
         }
     };
 }
 
 
+
+//
+//    // Async Task to access the web
+//    // http://codeoncloud.blogspot.hk/2013/07/android-mysql-php-json-tutorial.html
+//    private class JsonReadTask extends AsyncTask<String, Void, String> {
+//        @Override
+//        protected String doInBackground(String... params) {
+//            HttpClient httpclient = new DefaultHttpClient();
+//            HttpPost httppost = new HttpPost(params[0]);
+//            try {
+//                HttpResponse response = httpclient.execute(httppost);
+//                jsonResult = inputStreamToString(response.getEntity().getContent()).toString();
+//            }
+//
+//            catch (ClientProtocolException e) {
+//                e.printStackTrace();
+//                Toast.makeText(getApplicationContext(), "Error1:" + e.toString(), Toast.LENGTH_LONG).show();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                Toast.makeText(getApplicationContext(), "Error2:" + e.toString(), Toast.LENGTH_LONG).show();
+//            }
+//            return null;
+//        }
+//
+//        private StringBuilder inputStreamToString(InputStream is) {
+//            String rLine = "";
+//            StringBuilder answer = new StringBuilder();
+//            BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+//
+//            try {
+//                while ((rLine = rd.readLine()) != null) {
+//                    answer.append(rLine);
+//                }
+//            }
+//            catch (IOException e) {
+//                e.printStackTrace();
+//                Toast.makeText(getApplicationContext(), "Error3:" + e.toString(), Toast.LENGTH_LONG).show();
+//            }
+//            return answer;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String result) {
+//
+//            show_result();
+//        }
+//    }// end async task
+//
+//    public void accessWebService() {
+//        JsonReadTask task = new JsonReadTask();
+//        // passes values for the urls string array
+//        task.execute(new String[] { url });
+//    }
+//
+//    // build hash set for list view
+//    public void show_result() {
+////        List<Map<String, String>> employeeList = new ArrayList<Map<String, String>>();
+//
+//        try {
+//            JSONObject jsonResponse = new JSONObject(jsonResult);
+//            JSONArray jsonMainNode = jsonResponse.optJSONArray("item");
+//
+//            for (int i = 0; i < jsonMainNode.length(); i++) {
+//                JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
+//                String event_id = jsonChildNode.optString("event_id");
+//                Toast.makeText(getApplicationContext(), "Event Created. Event ID:" + event_id, Toast.LENGTH_SHORT).show();
+//
+//            }
+//            startActivity(new Intent(this, EventActivity.class));
+//        } catch (JSONException e) {
+//            Toast.makeText(getApplicationContext(), "Error:" + e.toString(), Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
 
 //        View.OnClickListener listener = new View.OnClickListener() {
